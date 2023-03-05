@@ -75,11 +75,10 @@ func (p *GetArticlesPresenter) Present(answer cleango.Output[domain.GetArticleRe
 			Created: createdOn,
 		})
 	}
-	total := len(forDisplays) - 1
-	for i := 0; i < total/2+1; i++ {
-		a := forDisplays[i]
-		forDisplays[i] = forDisplays[total-i]
-		forDisplays[total-i] = a
+	midPoint := len(forDisplays)
+	for i := 0; i < midPoint/2; i++ {
+		j := midPoint - i - 1
+		forDisplays[j], forDisplays[i] = forDisplays[i], forDisplays[j]
 	}
 	input := make(map[string]interface{})
 	input["Articles"] = forDisplays
