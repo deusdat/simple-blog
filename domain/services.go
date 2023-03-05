@@ -5,8 +5,13 @@ type ArticleWriter interface {
 	Write(post Article) (ArticleID, error)
 }
 
+type ArticleReaderSearch struct {
+	ArticleID     ArticleID
+	Page          int
+	LastArticleID ArticleID
+}
 type ArticleReader interface {
-	Read(id ArticleID) (Article, error)
+	read(paging ArticlePaging)
 }
 
 type ArticleDeleter interface {

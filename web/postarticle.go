@@ -45,10 +45,6 @@ func PostArticle(f Factory) http.HandlerFunc {
 
 func GetArticle(f Factory) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		//f := newF(request.Context())
-		//if f != nil {
-		//	FactoryError(writer, request)
-		//	return
-		//}
+		f.
 	}
 }

@@ -14,11 +14,7 @@
         <h2>No blogs found</h2>
     {{ else }}
         {{ range .Articles }}
-            <section>
-                <h1>{{ .Title}}</h1>
-                <h4>Author: {{ .Author}} {{ .Created.Format "Jan 02, 2006" }}</h4>
-                <div>{{.Content}}</div>
-            </section>
+            <a href="/articles/{{.ID}}"><h1>{{ .Title}}</h1></a>
         {{ end }}
     {{ end }}
 </body>

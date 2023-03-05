@@ -19,7 +19,7 @@ func main() {
 		}
 	}
 	r := chi.NewRouter()
-	r.Route("/blogs", func(r chi.Router) {
+	r.Route("/articles", func(r chi.Router) {
 		r.Get("/", wrap(web.GetArticles))
 		r.Route("/{articleId}", func(r chi.Router) {
 			r.Use(web.ArticleCtx)
