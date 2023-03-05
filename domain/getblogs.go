@@ -19,8 +19,11 @@ type ArticlePaging struct {
 }
 
 func (g GetArticleUseCase) Execute(paging ArticlePaging, p cleango.Presenter[GetArticleResults]) {
-	firstDt := time.Now().AddDate(0, -1, 0)
-	secondDt := time.Now()
+	now := time.Now()
+	firstDt := now.AddDate(0, -1, 10)
+	secondDt := now.AddDate(0, -1, 0)
+	thirdDt := now.AddDate(0, 0, -1)
+	fourth := now
 
 	out := cleango.Output[GetArticleResults]{
 		Answer: GetArticleResults{
@@ -41,7 +44,7 @@ anim id est laborum.</div>
 				},
 				{
 					ID:    "randomw2",
-					Title: "My most recent work",
+					Title: "My Second Article",
 					Content: `Sed ut perspiciatis unde omnis iste natus error sit 
 voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo 
 inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
@@ -54,6 +57,38 @@ ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptat
 quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
 					CreatedDate: &secondDt,
 					Author:      "Tiler Durden",
+				},
+				{
+					ID:    "randomw3",
+					Title: "My Third",
+					Content: `Sed ut perspiciatis unde omnis iste natus error sit 
+voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo 
+inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
+ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
+tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
+veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex 
+ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
+quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
+					CreatedDate: &thirdDt,
+					Author:      "Abe Froman",
+				},
+				{
+					ID:    "randomw4",
+					Title: "My Fourth",
+					Content: `Sed ut perspiciatis unde omnis iste natus error sit 
+voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo 
+inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
+ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
+tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
+veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex 
+ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
+quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
+					CreatedDate: &fourth,
+					Author:      "Mr Tibbs",
 				},
 			},
 			Next: "",
