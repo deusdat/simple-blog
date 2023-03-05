@@ -13,7 +13,12 @@ type GetArticleResults struct {
 	Next     ArticleID
 }
 
-func (g GetArticleUseCase) Execute(articleID *ArticleID, p cleango.Presenter[GetArticleResults]) {
+type ArticlePaging struct {
+	Number int
+	LastID ArticleID
+}
+
+func (g GetArticleUseCase) Execute(paging ArticlePaging, p cleango.Presenter[GetArticleResults]) {
 	firstDt := time.Now().AddDate(0, -1, 0)
 	secondDt := time.Now()
 
