@@ -63,12 +63,16 @@ func (p *GetArticlesPresenter) Present(answer cleango.Output[domain.GetArticleRe
 
 	var forDisplays []ForDisplay
 	for _, article := range answer.Answer.Articles {
+		createdOn := time.Now()
+		if article.CreatedDate != nil {
+			createdOn = *article.CreatedDate
+		}
 		forDisplays = append(forDisplays, ForDisplay{
 			Title:   article.Title,
 			Content: template.HTML(article.Content),
 			ID:      string(article.ID),
 			Author:  article.Author,
-			Created: *article.CreatedDate,
+			Created: createdOn,
 		})
 	}
 	input := make(map[string]interface{})
