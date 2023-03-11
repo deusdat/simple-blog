@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My simple articles</title>
+    <style>
+        body {
+            padding: 10px 150px;
+        }
+    </style>
+</head>
+<body>
+    {{ if not .Articles}}
+        <h2>No blogs found</h2>
+    {{ else }}
+        {{ range .Articles }}
+            <a href="/articles/{{.ID}}"><h1>{{ .Title}}</h1></a>
+        {{ end }}
+    {{ end }}
+</body>
+</html>

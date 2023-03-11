@@ -16,4 +16,10 @@ type Factory interface {
 	GetArticlesUseCase() cleango.UseCase[domain.ArticlePaging, domain.GetArticleResults]
 	// GetArticlesPresenter the appropriate presenter to show the articles.
 	GetArticlesPresenter() cleango.Presenter[domain.GetArticleResults]
+
+	// GetSingleArticlePresenter returns a presenter that shows a single article.
+	GetSingleArticlePresenter() *GetSingleArticlePresenter
+
+	// GetSingleArticleUseCase returns a use case for getting a specific article.
+	GetSingleArticleUseCase() cleango.UseCase[domain.ArticleID, domain.Article]
 }

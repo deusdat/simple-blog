@@ -10,12 +10,13 @@
     </style>
 </head>
 <body>
-    {{ if not .Articles}}
-        <h2>No blogs found</h2>
-    {{ else }}
-        {{ range .Articles }}
-            <a href="/articles/{{.ID}}"><h1>{{ .Title}}</h1></a>
-        {{ end }}
-    {{ end }}
+  <h2>{{.Title}}</h2>
+  <h3>By {{.Author}} on {{.CreatedDate}}</h3>
+  <div>
+    {{.Content}}
+  </div>
+  <div>
+    <a href="/blogs/{{.ArticleID}}/edit">Edit</a>
+  </div>
 </body>
 </html>

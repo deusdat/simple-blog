@@ -14,6 +14,10 @@ type factory struct {
 	r *http.Request
 }
 
+func (f factory) GetSingleArticleUseCase() cleango.UseCase[domain.ArticleID, domain.Article] {
+	return &domain.GetSingleArticleUseCase{ArticleReader: articleCache}
+}
+
 var articleCache *memory.ArticleCache
 
 func init() {
@@ -109,5 +113,12 @@ func newFactory(dbLocation string, w http.ResponseWriter, r *http.Request) facto
 	return factory{
 		w: w,
 		r: r,
+	}
+}
+
+func (f factory) GetSingleArticlePresenter() *web.GetSingleArticlePresenter {
+	return &web.GetSingleArticlePresenter{
+		Writer:  f.w,
+		Request: f.r,
 	}
 }

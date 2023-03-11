@@ -4,11 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/deusdat/cleango"
-	"html/template"
 	"net/http"
 	"simple-blog/domain"
 	"simple-blog/web/templates"
-	"time"
 )
 
 type BlogEditSource int
@@ -54,25 +52,15 @@ type GetArticlesPresenter struct {
 
 func (p *GetArticlesPresenter) Present(answer cleango.Output[domain.GetArticleResults]) {
 	type ForDisplay struct {
-		Title   string
-		Content template.HTML
-		ID      string
-		Author  string
-		Created time.Time
+		Title string
+		ID    string
 	}
 
 	var forDisplays []ForDisplay
 	for _, article := range answer.Answer.Articles {
-		createdOn := time.Now()
-		if article.CreatedDate != nil {
-			createdOn = *article.CreatedDate
-		}
 		forDisplays = append(forDisplays, ForDisplay{
-			Title:   article.Title,
-			Content: template.HTML(article.Content),
-			ID:      string(article.ID),
-			Author:  article.Author,
-			Created: createdOn,
+			Title: article.Title,
+			ID:    string(article.ID),
 		})
 	}
 	midPoint := len(forDisplays)
@@ -85,7 +73,7 @@ func (p *GetArticlesPresenter) Present(answer cleango.Output[domain.GetArticleRe
 
 	p.Writer.WriteHeader(200)
 	p.Writer.Header().Set("Content-Type", "text/html")
-	t := templates.Templates["blogs.gohtml"]
+	t := templates.Templates["articles.gohtml"]
 	if err := t.Execute(p.Writer, input); err != nil {
 		println("failed to write blogs")
 	}

@@ -21,10 +21,10 @@ func main() {
 	r := chi.NewRouter()
 	r.Route("/articles", func(r chi.Router) {
 		r.Get("/", wrap(web.GetArticles))
-		r.Route("/{articleId}", func(r chi.Router) {
+		r.Route("/{articleID}", func(r chi.Router) {
 			r.Use(web.ArticleCtx)
 			r.Post("/", wrap(web.PostArticle))
-			r.Get("/edit", wrap(web.GetArticle))
+			r.Get("/", wrap(web.GetArticle))
 		})
 	})
 	err := http.ListenAndServe(":3000", r)
