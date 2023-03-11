@@ -7,11 +7,10 @@ type ArticleWriter interface {
 
 type ArticleReaderSearch struct {
 	ArticleID     ArticleID
-	Page          int
 	LastArticleID ArticleID
 }
 type ArticleReader interface {
-	read(paging ArticlePaging)
+	Read(paging ArticleReaderSearch) ([]Article, error)
 }
 
 type ArticleDeleter interface {
