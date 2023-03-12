@@ -14,6 +14,28 @@ type factory struct {
 	r *http.Request
 }
 
+func (f factory) PostArticlePresenter() cleango.Presenter[domain.Article] {
+	return &web.BlogPostPresenter{
+		Writer:         f.w,
+		Request:        f.r,
+		ErrorPresenter: f.GetEditArticlePresenter(),
+	}
+}
+
+func (f factory) PostEditArticleUseCase() cleango.UseCase[domain.Article, domain.Article] {
+	return &domain.CreateOrModifyPost{
+		Writer: articleCache,
+	}
+}
+
+func (f factory) GetEditArticlePresenter() cleango.Presenter[domain.Article] {
+	return &web.GetSingleArticlePresenter{
+		Writer:  f.w,
+		Request: f.r,
+		Editing: true,
+	}
+}
+
 func (f factory) GetSingleArticleUseCase() cleango.UseCase[domain.ArticleID, domain.Article] {
 	return &domain.GetSingleArticleUseCase{ArticleReader: articleCache}
 }
@@ -116,9 +138,10 @@ func newFactory(dbLocation string, w http.ResponseWriter, r *http.Request) facto
 	}
 }
 
-func (f factory) GetSingleArticlePresenter() *web.GetSingleArticlePresenter {
+func (f factory) GetSingleArticlePresenter() cleango.Presenter[domain.Article] {
 	return &web.GetSingleArticlePresenter{
 		Writer:  f.w,
 		Request: f.r,
+		Editing: false,
 	}
 }

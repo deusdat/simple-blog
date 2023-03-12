@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Article</title>
+    <style>
+        body {
+            padding: 10px 150px;
+        }
+    </style>
 </head>
 <body>
-    <form action="/blogs" method="post">
-        <input type="hidden" name="articleID" value="{{.ArticleID}}}">
+    <form action="/articles/{{.Article.ID}}" method="post">
         <div>
             <label for="author">Author:</label>
-            <input type="text" name="author" id="author">
+            {{if .InvalidAuthor}}
+                {{.}}
+            {{end}}
+            <input type="text" name="author" id="author" value="{{.Article.Author}}">
         </div>
         <div>
             <label for="title">Title:</label>
-            <input type="text" name="title" id="title">
+            <input type="text" name="title" id="title" value="{{.Article.Title}}">
         </div>
         <div>
             <label for="content">Content:</label>
-            <textarea id="content">{{.Content}}</textarea>
+            <textarea id="content" cols="120" rows="40" name="content">{{.Article.Content}}</textarea>
         </div>
+        <input type="submit" value="Save">
+        <a href="/articles/{{.ID}}">Cancel</a>
     </form>
 </body>
 </html>

@@ -18,8 +18,15 @@ type Factory interface {
 	GetArticlesPresenter() cleango.Presenter[domain.GetArticleResults]
 
 	// GetSingleArticlePresenter returns a presenter that shows a single article.
-	GetSingleArticlePresenter() *GetSingleArticlePresenter
-
+	GetSingleArticlePresenter() cleango.Presenter[domain.Article]
 	// GetSingleArticleUseCase returns a use case for getting a specific article.
 	GetSingleArticleUseCase() cleango.UseCase[domain.ArticleID, domain.Article]
+
+	// GetEditArticlePresenter returns a presenter for editing an article.
+	GetEditArticlePresenter() cleango.Presenter[domain.Article]
+
+	// PostEditArticleUseCase handles CRU of the app.
+	PostEditArticleUseCase() cleango.UseCase[domain.Article, domain.Article]
+
+	PostArticlePresenter() cleango.Presenter[domain.Article]
 }

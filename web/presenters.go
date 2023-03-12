@@ -1,7 +1,6 @@
 package web
 
 import (
-	"database/sql"
 	"fmt"
 	"github.com/deusdat/cleango"
 	"net/http"
@@ -9,40 +8,23 @@ import (
 	"simple-blog/web/templates"
 )
 
-type BlogEditSource int
-
-const (
-	NewPost BlogEditSource = iota
-	EditPost
-)
-
 type BlogPostPresenter struct {
-	Tx                       *sql.Tx
-	OriginalSource           BlogEditSource
-	Writer                   http.ResponseWriter
-	Request                  *http.Request
-	ValidationErrorPresenter GetEditBlogPostPresenter
+	Writer         http.ResponseWriter
+	Request        *http.Request
+	ErrorPresenter cleango.Presenter[domain.Article]
 }
 
 func (b *BlogPostPresenter) Present(answer cleango.Output[domain.Article]) {
 	if answer.Err != nil {
-		b.ValidationErrorPresenter.Present(answer)
+		b.ErrorPresenter.Present(answer)
 		return
 	}
 
-	_ = b.Tx.Commit()
 	http.Redirect(
 		b.Writer,
 		b.Request,
-		fmt.Sprintf("/blogs/"),
+		fmt.Sprintf("/articles/%s", answer.Answer.ID),
 		301)
-}
-
-type GetEditBlogPostPresenter struct {
-}
-
-func (b *GetEditBlogPostPresenter) Present(answer cleango.Output[domain.Article]) {
-
 }
 
 type GetArticlesPresenter struct {

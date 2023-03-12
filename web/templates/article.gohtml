@@ -10,13 +10,14 @@
     </style>
 </head>
 <body>
-  <h2>{{.Title}}</h2>
-  <h3>By {{.Author}} on {{.CreatedDate}}</h3>
-  <div>
+<a href="/articles">Articles</a>
+<h2>{{.Title}}</h2>
+<h3>By {{.Author}} on {{.CreatedDate}}</h3>
+<div>
     {{.Content}}
-  </div>
-  <div>
-    <a href="/blogs/{{.ArticleID}}/edit">Edit</a>
-  </div>
+</div>
+<div>
+    <a href="/articles/{{.ID}}/edit">Edit</a>
+</div>
 </body>
 </html>

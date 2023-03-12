@@ -15,7 +15,8 @@ type ArticleCache struct {
 func (a *ArticleCache) Write(post domain.Article) (domain.ArticleID, error) {
 	a.Mutex.Lock()
 	defer a.Mutex.Unlock()
-	for _, art := range a.articles {
+	for i, _ := range a.articles {
+		art := &a.articles[i]
 		if art.ID == post.ID {
 			art.Title, art.CreatedDate, art.Author, art.Content =
 				post.Title, post.CreatedDate, post.Author, post.Content

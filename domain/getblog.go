@@ -14,11 +14,12 @@ func (g *GetSingleArticleUseCase) Execute(articleID ArticleID, p cleango.Present
 		ArticleID     ArticleID
 		LastArticleID ArticleID
 	}{ArticleID: articleID})
+	op := "getsinglearticleusecase.execute "
 	if err != nil {
 		p.Present(struct {
 			Answer Article
 			Err    error
-		}{Err: fmt.Errorf("GetSingleArticleUseCase.Execute %w", err)})
+		}{Err: cleango.ToDomainError(op+"failed to get article repo", err)})
 		return
 	}
 	if len(articles) == 0 {
@@ -27,7 +28,7 @@ func (g *GetSingleArticleUseCase) Execute(articleID ArticleID, p cleango.Present
 			Err    error
 		}{Err: &cleango.DomainError{
 			Kind:    cleango.NotFound,
-			Message: fmt.Sprintf("GetSingleArticleUseCase.Execute could not find %s", articleID),
+			Message: fmt.Sprintf("%s could not find %s", op, articleID),
 		}})
 		return
 	}
@@ -37,7 +38,7 @@ func (g *GetSingleArticleUseCase) Execute(articleID ArticleID, p cleango.Present
 			Err    error
 		}{Err: &cleango.DomainError{
 			Kind:    cleango.NotFound,
-			Message: fmt.Sprintf("GetSingleArticleUseCase.Execute too many articles with %s", articleID),
+			Message: fmt.Sprintf("%s too many articles with %s", op, articleID),
 		}})
 		return
 	}

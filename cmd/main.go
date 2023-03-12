@@ -25,6 +25,7 @@ func main() {
 			r.Use(web.ArticleCtx)
 			r.Post("/", wrap(web.PostArticle))
 			r.Get("/", wrap(web.GetArticle))
+			r.Get("/edit", wrap(web.GetArticleForEdit))
 		})
 	})
 	err := http.ListenAndServe(":3000", r)
