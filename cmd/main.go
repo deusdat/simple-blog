@@ -21,6 +21,8 @@ func main() {
 	r := chi.NewRouter()
 	r.Route("/articles", func(r chi.Router) {
 		r.Get("/", wrap(web.GetArticles))
+		r.Get("/edit", wrap(web.GetArticleForEdit))
+		r.Post("/", wrap(web.PostArticle))
 		r.Route("/{articleID}", func(r chi.Router) {
 			r.Use(web.ArticleCtx)
 			r.Post("/", wrap(web.PostArticle))

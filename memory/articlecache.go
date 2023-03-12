@@ -40,7 +40,7 @@ func (a *ArticleCache) Read(paging domain.ArticleReaderSearch) ([]domain.Article
 		}
 	}
 	var asCopy []domain.Article
-	pageSize := 3
+	pageSize := 10
 	for _, art := range a.articles {
 		if art.ID == paging.ArticleID {
 			asCopy = []domain.Article{art}

@@ -10,20 +10,26 @@
     </style>
 </head>
 <body>
-    <form action="/articles/{{.Article.ID}}" method="post">
+    <form action="/articles{{if .Article.ID}}/{{.Article.ID}}{{end}}" method="post">
         <div>
             <label for="author">Author:</label>
             {{if .InvalidAuthor}}
-                {{.}}
+                {{.InvalidAuthor}}
             {{end}}
             <input type="text" name="author" id="author" value="{{.Article.Author}}">
         </div>
         <div>
             <label for="title">Title:</label>
+            {{if .InvalidTitle}}
+                {{.InvalidTitle}}
+            {{end}}
             <input type="text" name="title" id="title" value="{{.Article.Title}}">
         </div>
         <div>
             <label for="content">Content:</label>
+            {{if .InvalidContent}}
+                {{.InvalidContent}}
+            {{end}}
             <textarea id="content" cols="120" rows="40" name="content">{{.Article.Content}}</textarea>
         </div>
         <input type="submit" value="Save">

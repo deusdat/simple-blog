@@ -28,11 +28,7 @@ func PostArticle(f Factory) http.HandlerFunc {
 			FactoryError(writer, request)
 			return
 		}
-		articleID, ok := request.Context().Value(articleKey).(string)
-		if !ok {
-			FactoryError(writer, request)
-			return
-		}
+		articleID, _ := request.Context().Value(articleKey).(string)
 		title := request.Form.Get("title")
 		content := request.Form.Get("content")
 		author := request.Form.Get("author")
