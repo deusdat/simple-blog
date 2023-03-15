@@ -8,13 +8,13 @@ import (
 	"simple-blog/web/templates"
 )
 
-type BlogPostPresenter struct {
+type PostArticlePresenter struct {
 	Writer         http.ResponseWriter
 	Request        *http.Request
 	ErrorPresenter cleango.Presenter[domain.Article]
 }
 
-func (b *BlogPostPresenter) Present(answer cleango.Output[domain.Article]) {
+func (b *PostArticlePresenter) Present(answer cleango.Output[domain.Article]) {
 	if answer.Err != nil {
 		b.ErrorPresenter.Present(answer)
 		return
@@ -52,6 +52,7 @@ func (p *GetArticlesPresenter) Present(answer cleango.Output[domain.GetArticleRe
 	}
 	input := make(map[string]interface{})
 	input["Articles"] = forDisplays
+	input["NextID"] = answer.Answer.Next
 
 	p.Writer.WriteHeader(200)
 	p.Writer.Header().Set("Content-Type", "text/html")

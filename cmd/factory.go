@@ -15,7 +15,7 @@ type factory struct {
 }
 
 func (f factory) PostArticlePresenter() cleango.Presenter[domain.Article] {
-	return &web.BlogPostPresenter{
+	return &web.PostArticlePresenter{
 		Writer:         f.w,
 		Request:        f.r,
 		ErrorPresenter: f.GetEditArticlePresenter(),

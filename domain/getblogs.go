@@ -42,7 +42,9 @@ func (g *GetArticleUseCase) Execute(paging ArticlePaging, p cleango.Presenter[Ge
 		Articles []Article
 		Next     ArticleID
 	}{
-		Articles: articles, Next: lastId},
+		Articles: articles,
+		Next:     lastId,
+	},
 		Err: err,
 	})
 }

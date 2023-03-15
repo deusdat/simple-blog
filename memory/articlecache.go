@@ -40,7 +40,7 @@ func (a *ArticleCache) Read(paging domain.ArticleReaderSearch) ([]domain.Article
 		}
 	}
 	var asCopy []domain.Article
-	pageSize := 10
+	pageSize := 2
 	for _, art := range a.articles {
 		if art.ID == paging.ArticleID {
 			asCopy = []domain.Article{art}
@@ -49,6 +49,7 @@ func (a *ArticleCache) Read(paging domain.ArticleReaderSearch) ([]domain.Article
 		if domain.IsValidID(paging.LastArticleID) {
 			if art.ID == paging.LastArticleID {
 				asCopy = nil
+				continue // we don't want to include it.
 			}
 			// we need to start paging at article.
 			asCopy = append(asCopy, art)
